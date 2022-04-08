@@ -4,7 +4,7 @@ const MoodButton = (props) => {
   const handleMoodButton = (e) => {};
 
   return (
-    <input type="text" className="mood-btn" onChange={handleMoodButton}>
+    <input type="text"  value = {} className="mood-btn" onChange={handleMoodButton}>
       {text}
     </input>
   );
