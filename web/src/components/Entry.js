@@ -1,15 +1,24 @@
-import User from './User';
-import Description from './Description';
-import MoodButton from './MoodButton';
+import { useState } from 'react';
 
-const Entry = (props) => {
+const Entry = ({ addNewEntry }) => {
+  const [description, setDescription] = useState('');
+  const [mood, setMood] = useState('');
+
   return (
-    <form action="" className="form" onSubmit={(e) => e.preventDefault()}>
-      <User />
-      <Description />
-      <MoodButton text="I'm happy" />
-      <MoodButton text="I'm angry" />
-      <MoodButton text="I'm sad" />
+    <form className="form" onSubmit={handleSubmit}>
+      <div className="description">
+        <label className="description__label" htmlFor="description">
+          description
+        </label>
+        <textarea
+          className="description__textarea"
+          id="description"
+          value={description}
+          onChange={handleTextarea}
+          type="text"
+          maxLength={100}
+        />
+      </div>
     </form>
   );
 };

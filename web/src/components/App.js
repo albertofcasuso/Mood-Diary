@@ -7,19 +7,11 @@ import getApiData from '../services/api';
 import Entry from './Entry';
 
 function App() {
-  //los datos q me devuleve api los guardo en var estado--------
-  // const [data, setData] = useState('');
-
-  //State variables
-  const [state, setstate] = useState();
-  //Global var
-  //Hooks
-  //Events functions
-  //variables or functions with html
+  const handleAddNewEntry = (entry) => saveEntry(entry);
   return (
     <div>
-      <h2>Este título aparece siempre</h2>
-      <Entry />
+      {/* <h1 className="user">Erlich Bachman</h1> */}
+      <Entry addNewEntry={handleAddNewEntry} />
     </div>
   );
 }
