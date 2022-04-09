@@ -17,7 +17,7 @@ const Entry = ({ addNewEntry, buttons }) => {
       addNewEntry({
         description,
         mood,
-        date: Date.now(),
+        date: Date.now(), //CHECK!!!!!!!!!
       });
       setDescription('');
       setMood('');

@@ -15,7 +15,7 @@ function App() {
   const saveEntry = (entry) => {
     const newEntries = [entry, ...entries];
     setEntries(newEntries);
-    ls.set(newEntries);
+    // ls.set(newEntries);
   };
 
   const handleAddNewEntry = (entry) => saveEntry(entry);
