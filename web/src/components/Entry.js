@@ -10,8 +10,21 @@ const Entry = ({ addNewEntry, buttons }) => {
   const handleTextarea = (e) => {
     setDescription(e.target.value);
   };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    if (description && description.trim().length > 0) {
+      addNewEntry({
+        description,
+        mood,
+        date: Date.now(),
+      });
+      setDescription('');
+      setMood('');
+    }
+  };
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleOnSubmit}>
       <div className="description">
         <label className="description__label" htmlFor="description">
           description
@@ -51,6 +64,14 @@ const Entry = ({ addNewEntry, buttons }) => {
           onClick={handleMoodBtns}
         />
       </div>
+
+      <button
+        className="submit"
+        disabled={description.trim().length === 0 || !mood}
+        type="submit"
+      >
+        Submit
+      </button>
     </form>
   );
 };

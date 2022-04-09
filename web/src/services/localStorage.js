@@ -1,6 +1,3 @@
-// Fichero src/services/localStorage.js
-
-// Función que obtiene una propiedad del local storage
 const get = (key, defaultValue) => {
   const localStorageData = localStorage.getItem(key);
   if (localStorageData === null) {
