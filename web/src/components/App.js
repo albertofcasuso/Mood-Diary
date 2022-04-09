@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ls from '../services/localStorage';
 import Entry from './Entry';
 import EntryList from './EntryList';
+import Chart from './Chart';
 
 function App() {
   const [entries, setEntries] = useState(ls.get('entries', []));
@@ -24,6 +25,7 @@ function App() {
     <div>
       <Entry addNewEntry={handleAddNewEntry} />
       <EntryList listOfEntries={entries} />
+      <Chart />
     </div>
   );
 }
