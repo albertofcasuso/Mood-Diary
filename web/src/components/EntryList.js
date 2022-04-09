@@ -1,11 +1,12 @@
-//no se guarda la description en los posts de la lista
+import moment from 'moment';
 
 function EntryList({ listOfEntries }) {
   return (
     <div className="entries_list">
       {listOfEntries &&
         listOfEntries.map((entry, i) => {
-          const entryDate = 'Today';
+          const entryDate = moment(entry.date).fromNow();
+
           return (
             <div key={i}>
               <h2 className="user">Erlich Bachman</h2>
@@ -27,9 +28,11 @@ function EntryList({ listOfEntries }) {
 
               <div className="moods">
                 <input
-                  // className={
-                  //   mood === 'happy' ? 'customButton active' : 'customButton'
-                  // }
+                  className={
+                    entry.mood === 'happy'
+                      ? 'customButton active'
+                      : 'customButton'
+                  }
                   type="button"
                   name="mood"
                   value="happy"
@@ -37,9 +40,11 @@ function EntryList({ listOfEntries }) {
                 />
 
                 <input
-                  // className={
-                  //   mood === 'sad' ? 'customButton active' : 'customButton'
-                  // }
+                  className={
+                    entry.mood === 'sad'
+                      ? 'customButton active'
+                      : 'customButton'
+                  }
                   type="button"
                   name="mood"
                   value="sad"
@@ -47,9 +52,11 @@ function EntryList({ listOfEntries }) {
                 />
 
                 <input
-                  // className={
-                  //   mood === 'angry' ? 'customButton active' : 'customButton'
-                  // }
+                  className={
+                    entry.mood === 'angry'
+                      ? 'customButton active'
+                      : 'customButton'
+                  }
                   type="button"
                   name="mood"
                   value="angry"
