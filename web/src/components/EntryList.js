@@ -18,7 +18,7 @@ function EntryList({ listOfEntries }) {
                 <textarea
                   className="description__textarea"
                   id="description"
-                  // value={description}
+                  value={entry.description}
                   // onChange={handleTextarea}
                   type="text"
                   maxLength={100}
