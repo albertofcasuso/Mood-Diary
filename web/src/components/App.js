@@ -3,6 +3,7 @@ import '../styles/App.scss';
 import { useState, useEffect } from 'react';
 import ls from '../services/localStorage';
 import Entry from './Entry';
+import EntryList from './EntryList';
 
 function App() {
   const [entries, setEntries] = useState(ls.get('entries', []));
@@ -21,8 +22,8 @@ function App() {
 
   return (
     <div>
-      {/* <h1 className="user">Erlich Bachman</h1> */}
       <Entry addNewEntry={handleAddNewEntry} />
+      <EntryList listOfEntries={entries} />
     </div>
   );
 }
