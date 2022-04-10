@@ -11,11 +11,24 @@ import Chart from './Chart';
 //cambiar server por app en SERVIDOR
 
 function App() {
+  //State Variables
   const [entries, setEntries] = useState(ls.get('entries', []));
+  const [description, setDescription] = useState('');
+  const [mood, setMood] = useState('');
 
+  //Hooks
   useEffect(() => {
     ls.set('entries', entries);
   }, [entries]);
+
+  //Events functions
+  const updateDescription = (inputValue) => {
+    setDescription(inputValue);
+  };
+
+  const updateMood = (inputValue) => {
+    setMood(inputValue);
+  };
 
   const saveEntry = (entry) => {
     const newEntries = [entry, ...entries];
@@ -26,14 +39,20 @@ function App() {
   const handleAddNewEntry = (entry) => {
     saveEntry(entry);
     api.sendEntryToApi(entry).then((dataFromApi) => {
-      // setEntries(dataFromApi);
+      //setEntries(dataFromApi);
       console.log(dataFromApi);
     });
   };
 
   return (
     <div>
-      <Entry addNewEntry={handleAddNewEntry} />
+      <Entry
+        addNewEntry={handleAddNewEntry}
+        description={description}
+        mood={mood}
+        updateDescription={updateDescription}
+        updateMood={updateMood}
+      />
       <EntryList listOfEntries={entries} />
       <Chart />
     </div>

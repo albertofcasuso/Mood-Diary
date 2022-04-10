@@ -1,14 +1,17 @@
-import { useState } from 'react';
 import '../styles/Entry.scss';
-const Entry = ({ addNewEntry, buttons }) => {
-  const [description, setDescription] = useState('');
-  const [mood, setMood] = useState('');
 
+const Entry = ({
+  addNewEntry,
+  description,
+  mood,
+  updateMood,
+  updateDescription,
+}) => {
   const handleMoodBtns = (e) => {
-    setMood(e.target.value);
+    updateMood(e.target.value);
   };
   const handleTextarea = (e) => {
-    setDescription(e.target.value);
+    updateDescription(e.target.value);
   };
 
   const handleOnSubmit = (e) => {
@@ -19,12 +22,14 @@ const Entry = ({ addNewEntry, buttons }) => {
         mood,
         date: Date.now(), //CHECK!!!!!!!!!
       });
-      setDescription('');
-      setMood('');
+      updateDescription('');
+      updateMood('');
     }
   };
+
   return (
     <form className="form" onSubmit={handleOnSubmit}>
+      <h3 className="user">Erlich Bachman</h3>
       <div className="description">
         <label className="description__label" htmlFor="description">
           description
@@ -65,11 +70,7 @@ const Entry = ({ addNewEntry, buttons }) => {
         />
       </div>
 
-      <button
-        className="submit"
-        disabled={description.trim().length === 0 || !mood}
-        type="submit"
-      >
+      <button className="submit" type="submit">
         Submit
       </button>
     </form>
