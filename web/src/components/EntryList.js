@@ -21,6 +21,7 @@ function EntryList({ listOfEntries }) {
                   id="description"
                   value={entry.description}
                   // onChange={handleTextarea}
+                  readOnly //REVISAAAAAAARRRRRRRRRRRR
                   type="text"
                   maxLength={100}
                 />

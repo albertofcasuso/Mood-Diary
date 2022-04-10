@@ -1,6 +1,13 @@
-const callToApi = (data) => {
-  // Llamamos al API
-  return fetch('').then((response) => response.json());
+const sendEntryToApi = (data) => {
+  return fetch('http://localhost:3000/create-entry', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: { 'Content-Type': 'application/json' },
+  }).then((response) => response.json());
 };
 
-export default callToApi;
+const objToExport = {
+  sendEntryToApi: sendEntryToApi,
+};
+
+export default objToExport;
