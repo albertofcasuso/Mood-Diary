@@ -57,7 +57,7 @@ function EntryList({ listOfEntries }) {
           />
         </div>
 
-        <Link to={'/edit-student/'}>Edit</Link>
+        <Link to={`/edit-entry/${i}`}>Edit</Link>
       </li>
     );
   });

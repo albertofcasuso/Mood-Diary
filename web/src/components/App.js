@@ -1,4 +1,4 @@
-import { NavLink, Link, Route } from 'react-router-dom';
+import { NavLink, Link, Route, Switch } from 'react-router-dom';
 import '../styles/App.scss';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
@@ -7,8 +7,10 @@ import Entry from './Entry';
 import EntryList from './EntryList';
 import Chart from './Chart';
 
-//NO SE ESTÁ GUARDANDO EN LS!!! REVISAR!!
+//SE ESTÁ GUARDANDO EN LS?? REVISAR!!
 //cambiar server por app en SERVIDOR
+//refactorizar: dos var(desc y mood) pasarlas a 1 obj y 1 handle
+//poner catch error en los fetch
 
 function App() {
   //State Variables
@@ -44,17 +46,46 @@ function App() {
     });
   };
 
+  const handleGetEntries = () => {
+    fetch('http://localhost:3000/todo').then((response) => {
+      response.json().then((dataFromApi) => {
+        console.log(dataFromApi);
+        setEntries(dataFromApi);
+        dataFromApi.map((entry) => {
+          setMood(entry.mood);
+          setDescription(entry.description);
+        });
+      });
+    });
+  };
+
+  // const onSubmitEdit = (entry, mood) => {
+  //   console.log('fetch PUT');
+  //   api.sendEditedEntryToApi().
+  // };
+
   return (
     <div>
-      <Entry
-        addNewEntry={handleAddNewEntry}
-        description={description}
-        mood={mood}
-        updateDescription={updateDescription}
-        updateMood={updateMood}
-      />
-      <EntryList listOfEntries={entries} />
-      <Chart />
+      <Switch>
+        <Route exact path="/">
+          <Entry
+            addNewEntry={handleAddNewEntry}
+            description={description}
+            mood={mood}
+            updateDescription={updateDescription}
+            updateMood={updateMood}
+          />
+          <EntryList listOfEntries={entries} />
+          <Chart />
+        </Route>
+        <Route path="/edit-entry/:id">
+          <Entry
+            description={description}
+            mood={mood}
+            // onSubmit={onSubmitEdit}
+          />
+        </Route>
+      </Switch>
     </div>
   );
 }

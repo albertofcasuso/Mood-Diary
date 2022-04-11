@@ -54,7 +54,7 @@ server.post('/create-entry', (req, res) => {
   }
 });
 
-server.post('/edit-entry/:id', (req, res) => {
+server.put('/update-entry/:id', (req, res) => {
   const id = req.params.id;
   const entry = [req.body.description, req.body.mood];
   const updatedEntry =
