@@ -11,6 +11,7 @@ import {
 } from 'chart.js';
 //import component of the library that allows me to display line chart
 import { Bar } from 'react-chartjs-2';
+import {Modal}from 'material-ui'
 
 ChartJS.register(
   CategoryScale,
@@ -25,6 +26,11 @@ ChartJS.register(
 function Chart(props) {
   const scores = [2, 5, 1, 3];
   const labels = ['Happy', 'Sad', 'Angry'];
+  const [data,setData]=useState({
+    happy:10,
+    angry:100,
+    sad:100000
+  }) 
 
   const options = {
     indexAxis: 'y',
@@ -53,7 +59,9 @@ function Chart(props) {
 
   return (
     //devuelvo componente Line pasándole objeto data y options
-    <Bar data={data} className="chart-component" options={options} />
+    <Modal open={props.open}>
+      <Bar data={data} className="chart-component" options={options} />
+    </Modal>
   );
 }
 

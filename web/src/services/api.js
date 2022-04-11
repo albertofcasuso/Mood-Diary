@@ -1,4 +1,5 @@
 const sendEntryToApi = (data) => {
+  
   return fetch('http://localhost:3000/create-entry', {
     method: 'POST',
     body: JSON.stringify(data),

@@ -43,7 +43,7 @@ function App() {
     api.sendEntryToApi(entry).then((dataFromApi) => {
       //setEntries(dataFromApi);
       console.log(dataFromApi);
-    });
+    })
   };
 
   const handleGetEntries = () => {
@@ -63,9 +63,14 @@ function App() {
   //   console.log('fetch PUT');
   //   api.sendEditedEntryToApi().
   // };
-
+  const [open,setOpen] = useState(false);
+  
+const handleOpenModal =() =>{
+setOpen(!open)
+}
   return (
     <div>
+      <notification status={notificationStatus} />
       <Switch>
         <Route exact path="/">
           <Entry
@@ -76,7 +81,8 @@ function App() {
             updateMood={updateMood}
           />
           <EntryList listOfEntries={entries} />
-          <Chart />
+          <button onClick={handleOpenModal}>Open Modal</button>
+          <Chart open={open}/>
         </Route>
         <Route path="/edit-entry/:id">
           <Entry

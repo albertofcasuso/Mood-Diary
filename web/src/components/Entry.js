@@ -1,4 +1,5 @@
 import '../styles/Entry.scss';
+import { useState } from 'react';
 
 const Entry = ({
   addNewEntry,
@@ -20,12 +21,19 @@ const Entry = ({
       addNewEntry({
         description,
         mood,
-        date: Date.now(), //CHECK!!!!!!!!!
+        date: new Date.now(), //CHECK!!!!!!!!!
       });
       updateDescription('');
       updateMood('');
     }
   };
+
+  
+  const [editable, setTextType] = useState(true);
+
+  const handleTextClick = () => {
+    setTextType(!editable);
+  }
 
   return (
     <form className="form" onSubmit={handleOnSubmit}>
@@ -34,6 +42,14 @@ const Entry = ({
         <label className="description__label" htmlFor="description">
           description
         </label>
+        {editable?
+
+<p
+value={description}
+>
+ {`Ahora no se puede editar`}
+</p>
+:
         <textarea
           className="description__textarea"
           id="description"
@@ -42,6 +58,7 @@ const Entry = ({
           type="text"
           maxLength={100}
         />
+        }
       </div>
 
       <div className="moods">
@@ -51,6 +68,7 @@ const Entry = ({
           name="mood"
           value="happy"
           onClick={handleMoodBtns}
+          disabled={editable}
         />
 
         <input
@@ -59,6 +77,7 @@ const Entry = ({
           name="mood"
           value="sad"
           onClick={handleMoodBtns}
+          disabled={editable}
         />
 
         <input
@@ -67,12 +86,17 @@ const Entry = ({
           name="mood"
           value="angry"
           onClick={handleMoodBtns}
+          disabled={editable}
         />
       </div>
 
-      <button className="submit" type="submit">
-        Submit
+      <button className="submit" onClick={handleTextClick}>
+        Edit
       </button>
+      {!editable?
+      <button onClick={handleTextClick}>
+        Cancel Edit 
+      </button>:null}
     </form>
   );
 };
