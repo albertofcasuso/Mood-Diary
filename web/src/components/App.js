@@ -3,7 +3,7 @@ import '../styles/App.scss';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import ls from '../services/localStorage';
-import Entry from './Entry';
+import Entry from './EntryInput';
 import EntryList from './EntryList';
 import Chart from './Chart';
 
