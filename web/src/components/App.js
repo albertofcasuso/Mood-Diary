@@ -47,6 +47,11 @@ function App() {
     saveEntry(entry);
     api.sendEntryToApi(entry).then((dataFromApi) => {
       console.log(dataFromApi); //QUE PONGO AQUI??????????????????
+      //si nada mas es enviar datos, puedes no poner nada
+      //creo que el problema esta en la function api.sendEntryToApi, envias la data como JSON.stringify
+      //eso es correcto en localStorage, pero en la api dudo que sea asi
+      //ademas tu sendEntryToApi especifica que el tipo de dato es application/json
+      //la data yo creo que debe ir como objeto no como string
     });
   };
 
