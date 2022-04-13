@@ -30,6 +30,8 @@ server.get('/get-entries', (req, res) => {
 
 server.post('/create-entry', (req, res) => {
   console.log(req.body);
+  //aqui estas usando req.body.description y .mood
+  //pero estas mandando los datos como string desde el front
   if (req.body.description !== '' && req.body.mood !== '') {
     // get current date
     const date = new Date().toISOString();
