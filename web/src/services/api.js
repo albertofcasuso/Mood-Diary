@@ -1,7 +1,7 @@
 const sendEntryToApi = (data) => {
   return fetch('http://localhost:3000/create-entry', {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: data,
     headers: { 'Content-Type': 'application/json' },
   }).then((response) => response.json());
 };
@@ -18,7 +18,7 @@ const sendEditedEntryToApi = (entryId, data) => {
 
   return fetch('http://localhost:3000/update-entry', {
     method: 'PUT',
-    body: JSON.stringify(data),
+    body: data,
     headers: {
       'Content-Type': 'application/json',
       entry_id: entryId,
