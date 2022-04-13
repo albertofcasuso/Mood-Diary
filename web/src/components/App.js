@@ -1,9 +1,9 @@
-import { NavLink, Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import '../styles/App.scss';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
-import ls from '../services/localStorage';
-import Entry from './EntryInput';
+
+import EntryInput from './EntryInput';
 import EntryList from './EntryList';
 import Chart from './Chart';
 
@@ -14,14 +14,20 @@ import Chart from './Chart';
 
 function App() {
   //State Variables
-  const [entries, setEntries] = useState(ls.get('entries', []));
+  const [entries, setEntries] = useState([]);
+  console.log(entries);
   const [description, setDescription] = useState('');
   const [mood, setMood] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [newMood, setNewMood] = useState('');
+  const [editable, setEditable] = useState(true);
 
   //Hooks
   useEffect(() => {
-    ls.set('entries', entries);
-  }, [entries]);
+    api.getEntriesFromApi().then((dataFromApi) => {
+      setEntries(dataFromApi);
+    });
+  }, []);
 
   //Events functions
   const updateDescription = (inputValue) => {
@@ -33,53 +39,48 @@ function App() {
   };
 
   const saveEntry = (entry) => {
-    const newEntries = [entry, ...entries];
+    const newEntries = [...entries, entry];
     setEntries(newEntries);
-    // ls.set(newEntries);
   };
 
   const handleAddNewEntry = (entry) => {
     saveEntry(entry);
     api.sendEntryToApi(entry).then((dataFromApi) => {
-      //setEntries(dataFromApi);
-      console.log(dataFromApi);
+      console.log(dataFromApi); //QUE PONGO AQUI??????????????????
     });
   };
 
-  const handleGetEntries = () => {
-    fetch('http://localhost:3000/todo').then((response) => {
-      response.json().then((dataFromApi) => {
-        console.log(dataFromApi);
-        setEntries(dataFromApi);
-        dataFromApi.map((entry) => {
-          setMood(entry.mood);
-          setDescription(entry.description);
-        });
-      });
+  const submitUpdatedEntry = (description, mood, id) => {
+    api.sendEditedEntryToApi(description, mood, id).then((dataFromApi) => {
+      console.log(dataFromApi); //AQUIIIIIIIIII
     });
   };
-
-  // const onSubmitEdit = (entry, mood) => {
-  //   console.log('fetch PUT');
-  //   api.sendEditedEntryToApi().
-  // };
 
   return (
     <div>
       <Switch>
         <Route exact path="/">
-          <Entry
+          <EntryInput
             addNewEntry={handleAddNewEntry}
             description={description}
             mood={mood}
             updateDescription={updateDescription}
             updateMood={updateMood}
           />
-          <EntryList listOfEntries={entries} />
+          <EntryList
+            listOfEntries={entries}
+            submitUpdatedEntry={submitUpdatedEntry}
+            newDescription={newDescription}
+            setNewDescription={setNewDescription}
+            newMood={newMood}
+            setNewMood={setNewMood}
+            editable={editable}
+            setEditable={setEditable}
+          />
           <Chart />
         </Route>
         <Route path="/edit-entry/:id">
-          <Entry
+          <EntryInput
             description={description}
             mood={mood}
             // onSubmit={onSubmitEdit}

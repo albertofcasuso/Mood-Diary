@@ -22,11 +22,10 @@ const db = new Database('./src/database.db', {
 });
 
 // api endpoints
-server.get('/', (req, res) => {
-  const response = {
-    users: [{ name: 'Sofía' }, { name: 'María' }],
-  };
-  res.json(response);
+server.get('/get-entries', (req, res) => {
+  const query = db.prepare('SELECT * FROM entries');
+  const entries = query.all();
+  res.json(entries);
 });
 
 server.post('/create-entry', (req, res) => {

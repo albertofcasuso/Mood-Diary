@@ -1,30 +1,38 @@
 import '../styles/Entry.scss';
 
-const EntryInput = ({
-  addNewEntry,
-  description,
+const Entry = ({
   mood,
-  updateMood,
-  updateDescription,
+  id,
+  description,
+  date,
+  submitUpdatedEntry,
+  setNewMood,
+  newMood,
+  setNewDescription,
+  newDescription,
+  editable,
+  setEditable,
 }) => {
   const handleMoodBtns = (e) => {
-    updateMood(e.target.value);
+    setNewMood(e.target.value);
   };
   const handleTextarea = (e) => {
-    updateDescription(e.target.value);
+    setNewDescription(e.target.value);
   };
 
   const handleOnSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); //VALIDAR TB MOOD !!!!!!!<<---------
     if (description && description.trim().length > 0) {
-      addNewEntry({
-        description,
-        mood,
-        // date: Date.now(), //CHECK!!!!!!!!!
+      submitUpdatedEntry({
+        newDescription,
+        newMood,
+        id, ///DEBO PONER AQUÍ EL ID???????
       });
-      updateDescription('');
-      updateMood('');
     }
+  };
+
+  const handleEditClick = () => {
+    setEditable(!editable);
   };
 
   return (
@@ -34,14 +42,19 @@ const EntryInput = ({
         <label className="description__label" htmlFor="description">
           description
         </label>
-        <textarea
-          className="description__textarea"
-          id="description"
-          value={description}
-          onChange={handleTextarea}
-          type="text"
-          maxLength={100}
-        />
+
+        {editable ? (
+          <p value={description}>{description}</p>
+        ) : (
+          <textarea
+            className="description__textarea"
+            id="description"
+            value={description}
+            onChange={handleTextarea}
+            type="text"
+            maxLength={100}
+          />
+        )}
       </div>
 
       <div className="moods">
@@ -51,6 +64,7 @@ const EntryInput = ({
           name="mood"
           value="happy"
           onClick={handleMoodBtns}
+          disabled={editable}
         />
 
         <input
@@ -59,6 +73,7 @@ const EntryInput = ({
           name="mood"
           value="sad"
           onClick={handleMoodBtns}
+          disabled={editable}
         />
 
         <input
@@ -67,14 +82,23 @@ const EntryInput = ({
           name="mood"
           value="angry"
           onClick={handleMoodBtns}
+          disabled={editable}
         />
       </div>
 
-      <button className="submit" type="submit">
-        Submit
-      </button>
+      {editable ? (
+        <button className="edit" onClick={handleEditClick}>
+          EDIT
+        </button>
+      ) : null}
+
+      {!editable ? (
+        <button className="submit" type="submit">
+          SUBMIT TO DB
+        </button>
+      ) : null}
     </form>
   );
 };
 
-export default EntryInput;
+export default Entry;

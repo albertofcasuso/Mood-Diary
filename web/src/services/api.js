@@ -6,16 +6,10 @@ const sendEntryToApi = (data) => {
   }).then((response) => response.json());
 };
 
-const getEntryFromApi = (entryId) => {
-  console.log('Se están pidiendo datos de las entry nº:', entryId);
-  return fetch('http://localhost:3000/get-entry', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json', entry_id: entryId },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
+const getEntriesFromApi = () => {
+  return fetch('http://localhost:3000/get-entries').then((response) => {
+    response.json();
+  });
 };
 
 const sendEditedEntryToApi = (entryId, data) => {
@@ -39,7 +33,7 @@ const sendEditedEntryToApi = (entryId, data) => {
 const objToExport = {
   sendEntryToApi: sendEntryToApi,
   sendEditedEntryToApi: sendEditedEntryToApi,
-  getEntryFromApi: getEntryFromApi,
+  getEntriesFromApi: getEntriesFromApi,
 };
 
 export default objToExport;
