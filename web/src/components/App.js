@@ -25,6 +25,8 @@ function App() {
   //Hooks
   useEffect(() => {
     api.getEntriesFromApi().then((dataFromApi) => {
+      //esto funciona bien?
+      console.log(dataFromApi)
       setEntries(dataFromApi);
     });
   }, []);
@@ -40,6 +42,8 @@ function App() {
 
   const saveEntry = (entry) => {
     const newEntries = [...entries, entry];
+    //a ver que hay aqui dentro
+    console.log('newEntries: ', newEntries)
     setEntries(newEntries);
   };
 
