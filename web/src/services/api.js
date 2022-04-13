@@ -8,7 +8,8 @@ const sendEntryToApi = (data) => {
 
 const getEntriesFromApi = () => {
   return fetch('http://localhost:3000/get-entries').then((response) => {
-    response.json();
+    //Te faltaba el return
+    return response.json();
   });
 };
 
